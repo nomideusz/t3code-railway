@@ -52,4 +52,4 @@ cd "$H/workspace"
 # `t3 serve` prints a one-time admin pairing token + QR at boot; keep it out of the logs.
 exec setpriv --reuid=1000 --regid=1000 --init-groups env HOME="$H" USER=t3 LOGNAME=t3 SHELL=/bin/bash \
   t3 serve --host 0.0.0.0 --port 3773 "$H/workspace" \
-  > >(sed -u -e '/^Token: /d' -e 's/token=[^ "&]*/token=<redacted>/g' -e '/^[ █▀▄]*$/d') 2>&1
+  > >(sed -u -e '/^Token: /d' -e 's/token=[^ "&]*/token=<redacted>/g' -e 's/token%3[Dd][^ "&]*/token%3D<redacted>/g' -e '/^[ █▀▄]*$/d') 2>&1
