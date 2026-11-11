@@ -3,12 +3,12 @@ FROM ubuntu:26.04
 # Bump here. T3: version + sha256 of t3-<v>-linux-x64.tar.gz from the release's SHA256SUMS.
 # `# upgrade:` lines tell dispatched.zaur.app where to look for newer releases.
 # upgrade: github pingdotgg/t3code
-ARG T3_VERSION=0.1.8
-ARG T3_SHA256=b9c49dc00c23fbbc5961bdaff2d88e556d96c8dbd638c4501e2937c70650a9e5
+ARG T3_VERSION=0.1.9
+ARG T3_SHA256=0141025335da334759cecd8db3483e09772f3600ca03674698524e7d94291362
 # upgrade: npm @anthropic-ai/claude-code
 ARG CLAUDE_CODE_VERSION=2.1.322
 # upgrade: npm @openai/codex
-ARG CODEX_VERSION=0.167.0
+ARG CODEX_VERSION=0.167.1
 # OpenCode 2 (@opencode/cli); T3 gives OpenCode 1.x only limited support.
 # upgrade: npm @opencode/cli
 ARG OPENCODE_VERSION=2.2.5
