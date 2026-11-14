@@ -6,9 +6,9 @@ FROM ubuntu:26.04
 ARG T3_VERSION=0.1.9
 ARG T3_SHA256=0141025335da334759cecd8db3483e09772f3600ca03674698524e7d94291362
 # upgrade: npm @anthropic-ai/claude-code
-ARG CLAUDE_CODE_VERSION=2.1.322
+ARG CLAUDE_CODE_VERSION=2.1.325
 # upgrade: npm @openai/codex
-ARG CODEX_VERSION=0.167.1
+ARG CODEX_VERSION=0.168.0
 # OpenCode 2 (@opencode/cli); T3 gives OpenCode 1.x only limited support.
 # upgrade: npm @opencode/cli
 ARG OPENCODE_VERSION=2.2.5
