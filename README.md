@@ -1,6 +1,6 @@
 # Deploy and Host T3 Code on Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/t3-code-cloud?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=t3-code-cloud)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/t3?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=t3)
 
 [T3 Code](https://github.com/pingdotgg/t3code) is the open-source "agent harness control surface": a server that runs coding agents (Claude Code, Codex, OpenCode and more) on a machine, and web, desktop and mobile apps that drive them from anywhere. This template makes that machine a Railway service: an always-on cloud agent box with Claude Code, Codex and OpenCode preinstalled, so your agents keep working with the laptop closed and you check in from your phone.
 
