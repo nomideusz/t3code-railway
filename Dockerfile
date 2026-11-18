@@ -11,7 +11,7 @@ ARG CLAUDE_CODE_VERSION=2.1.325
 ARG CODEX_VERSION=0.168.0
 # OpenCode 2 (@opencode/cli); T3 gives OpenCode 1.x only limited support.
 # upgrade: npm @opencode/cli
-ARG OPENCODE_VERSION=2.2.5
+ARG OPENCODE_VERSION=2.2.7
 
 # Global npm installs go to /opt/npm, owned by the t3 user, so T3's "Update" button for
 # Claude/Codex works without root (until the next redeploy restores the pinned versions).
