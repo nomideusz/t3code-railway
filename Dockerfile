@@ -3,12 +3,12 @@ FROM ubuntu:26.04
 # Bump here. T3: version + sha256 of t3-<v>-linux-x64.tar.gz from the release's SHA256SUMS.
 # `# upgrade:` lines tell dispatched.zaur.app where to look for newer releases.
 # upgrade: github pingdotgg/t3code
-ARG T3_VERSION=0.1.9
-ARG T3_SHA256=0141025335da334759cecd8db3483e09772f3600ca03674698524e7d94291362
+ARG T3_VERSION=0.1.11
+ARG T3_SHA256=2b691c07f5bcb5adea4a863d5324aae7db21bd6d82280cec7787836dcaa013e1
 # upgrade: npm @anthropic-ai/claude-code
-ARG CLAUDE_CODE_VERSION=2.1.325
+ARG CLAUDE_CODE_VERSION=2.1.331
 # upgrade: npm @openai/codex
-ARG CODEX_VERSION=0.168.0
+ARG CODEX_VERSION=0.172.0
 # OpenCode 2 (@opencode/cli); T3 gives OpenCode 1.x only limited support.
 # upgrade: npm @opencode/cli
 ARG OPENCODE_VERSION=2.2.7
@@ -54,6 +54,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY railway-pair.mjs /opt/railway-pair.mjs
 COPY entrypoint.sh /entrypoint.sh
 COPY drop-file-cache /usr/local/bin/drop-file-cache
+COPY --chmod=0755 codex-no-daemon /usr/local/bin/codex-no-daemon
 
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/tini", "--", "/entrypoint.sh"]

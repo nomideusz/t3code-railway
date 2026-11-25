@@ -10,6 +10,10 @@ mkdir -p "$H/workspace"
 
 as_t3() { setpriv --reuid=1000 --regid=1000 --init-groups env HOME="$H" USER=t3 LOGNAME=t3 SHELL=/bin/bash "$@"; }
 
+# Codex 0.168+ copies itself (~420 MB) into ~/.codex/packages on first start, which takes
+# about 1 GB of memory and gets it killed on a 0.5 GB service. Off unless the config says otherwise.
+as_t3 codex-no-daemon "$H/.codex/config.toml" || echo "codex: could not write daemon_auto_start"
+
 # Optional keys, applied once so a login done in the app is never overwritten.
 if [ -n "${OPENAI_API_KEY:-}" ] && [ ! -f "$H/.codex/auth.json" ]; then
   printenv OPENAI_API_KEY | as_t3 codex login --with-api-key >/dev/null 2>&1 || echo "codex: API-key login failed"
