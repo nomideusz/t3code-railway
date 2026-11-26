@@ -2,6 +2,22 @@
 set -e
 : "${T3_SETUP_PASSWORD:?T3_SETUP_PASSWORD is required - it gates the pairing page}"
 
+# From 0.1.11 the T3 server alone peaks at about 450 MB while starting, so under 1 GB
+# (Railway's Free plan allows 0.5 GB) the kernel kills it every few seconds and the logs
+# never say why. Say it on the page instead, and keep the healthcheck up.
+lim=$(cat /sys/fs/cgroup/memory.max 2>/dev/null || echo max)
+if [ "$lim" != max ] && [ "$lim" -lt 900000000 ] 2>/dev/null; then
+  mb=$((lim / 1048576))
+  echo "T3 Code needs 1 GB of memory and this service has ${mb} MB: serving a notice page instead. Raise the memory limit to 1 GB or more, then redeploy."
+  unset T3_SETUP_PASSWORD
+  exec setpriv --reuid=1000 --regid=1000 --init-groups env PORT="${PORT:-8080}" MB="$mb" node -e '
+    const msg = `T3 Code could not start: it needs 1 GB of memory and this service has ${process.env.MB} MB (Railway'"'"'s Free plan allows 0.5 GB). Below 1 GB the T3 server is killed for memory as it starts, over and over. Use the Hobby plan or higher, set the memory limit in the service settings to 1 GB or more, then redeploy. Your data on the volume is untouched.`;
+    require("http").createServer((q, r) => {
+      if (q.url === "/healthcheck") { r.end("ok"); return; }
+      r.writeHead(503, {"content-type": "text/plain; charset=utf-8"}); r.end(msg + "\n");
+    }).listen(+process.env.PORT, "::");'
+fi
+
 # /home/t3 is the Railway volume: empty (bar lost+found) and root-owned on first boot.
 H=/home/t3
 [ -f "$H/.bashrc" ] || cp -an /etc/skel/. "$H/"
